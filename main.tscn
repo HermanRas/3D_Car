@@ -1,19 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Textures/BlockBase.tres" type="Material" id=1]
 [ext_resource path="res://car.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Textures/road.shader" type="Shader" id=3]
-[ext_resource path="res://Assets/Textures/TexturesCom_Roads0069_1_seamless_S.jpg" type="Texture" id=4]
-
-[sub_resource type="Curve3D" id=1]
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -206.61, 10.8559, -125.583, -58.5998, 0, 43.1721, 44.8408, 0, -23.6524, -156.46, 14.1766, -227.981, -21.7462, 0, -26.008, 29.5164, 1.52588e-05, 58.209, -50.125, 14.9777, -222.528, 0, 0, 0, 0, 0, 0, -67.7119, 2.40125, -121.759, 1.65823, -2.37811, -36.002, -1.65823, 2.37811, 36.002, -112.071, 6.27467, -46.5804, -24.3403, 0, -20.5757, 24.3403, 0, 20.5757, -117.167, 4.45955, 83.1009, 0, 0, 0, 0, 0, 0, -7.11282, 2.43163, 123.831, -29.5713, -6.46085, 36.8964, 29.5713, 6.46085, -36.8964, 67.2864, 16.9792, 116.007, 5.3174, -2.33072, 73.7426, -5.3174, 2.33072, -73.7426, 103.692, 2.81827, -4.4994, 0, 0, 0, 0, 0, 0, 97.3845, 5.53256, -143.805, -97.522, 0, 3.9425, 108.444, 0, -9.78853, 203.742, 3.25119, -227.569, 0, 0, 0, 0, 0, 0, 384.973, 2.29288, -71.5058, 32.5478, 0, -75.6548, -32.4459, 1.52588e-05, 74.4713, 408.606, 4.56308, 122.423, 0, 0, 0, 0, 0, 0, 162.038, 9.42323, 191.462, 0, 0, 0, 0, 0, 0, -113.887, 33.756, 182.737, 81.7738, 0, 106.838, -105.078, -1.52588e-05, -134.468, -467.792, 7.9984, 105.615, -68.6552, 0, 66.8244, 50.3471, 0, -47.6009, -542.755, -1.52588e-05, -272.176, -53.7979, 5.60944, -54.7901, 53.7979, -5.60944, 54.7901, -311.036, 9.63751, -270.958, -109.176, 9.61871, -51.0203, 109.176, -9.61871, 51.0203, -344.861, 11.5612, 38.9998, 5.5983, 3.09869, 29.1726, -5.5983, -3.09869, -29.1726, -203.97, 11.3459, -17.093 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
-}
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 3 )
-shader_param/road_texture = ExtResource( 4 )
+[ext_resource path="res://Track_base.tscn" type="PackedScene" id=3]
 
 [node name="main" type="Spatial"]
 
@@ -34,33 +23,4 @@ shadow_enabled = true
 [node name="car2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 104.884, 3.8555, 0 )
 
-[node name="Track" type="Spatial" parent="."]
-
-[node name="Path" type="Path" parent="Track"]
-curve = SubResource( 1 )
-
-[node name="Road" type="CSGPolygon" parent="Track/Path"]
-invert_faces = true
-polygon = PoolVector2Array( -8, 0, 0, 0.1, 8, 0.1, 1, 0 )
-mode = 2
-path_node = NodePath("..")
-path_interval = 1.0
-path_rotation = 2
-path_local = false
-path_continuous_u = false
-path_joined = true
-material = SubResource( 2 )
-
-[node name="Collider" type="CSGPolygon" parent="Track/Path"]
-visible = false
-calculate_tangents = false
-use_collision = true
-invert_faces = true
-polygon = PoolVector2Array( -8, 0, 8, 0, 8, 4, 16, 2, 16, -1, -16, -1, -16, 2, -8, 4 )
-mode = 2
-path_node = NodePath("..")
-path_interval = 1.0
-path_rotation = 2
-path_local = false
-path_continuous_u = false
-path_joined = true
+[node name="Track" parent="." instance=ExtResource( 3 )]
